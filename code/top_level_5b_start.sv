@@ -114,7 +114,7 @@ per clock cycle.
 	end
     else begin
       cycle_ct <= cycle_ct + 1;
-	  if(cycle_ct== ) begin			// last symbol of preamble
+	  if(cycle_ct== 7) begin			// last symbol of preamble 
 	    for(i=0; i<6; i++) begin
 	      match[i] <= ;				// which LFSR state conforms to our test bench LFSR? 
 		end
@@ -129,8 +129,8 @@ per clock cycle.
 	wr_en     = 'b0;
   case(cycle_ct)
 	0: begin 
-           raddr     = ;   // starting address for encrypted data to be loaded into device
-		   waddr     = ;   // starting address for storing decrypted results into data mem
+      raddr     = ;   // starting address for encrypted data to be loaded into device
+		  waddr     = ;   // starting address for storing decrypted results into data mem
 	     end		       // no op
 	1: begin 
            load_LFSR = ;	  // initialize the 6 LFSRs
