@@ -52,35 +52,35 @@ module top_level_5b(
          .init (load_LFSR),	            // 1: initialize LFSR
          .taps (6'h2D)     ,    // tap pattern 1
          .start(start) ,	            // starting state for LFSR
-         .state(LFSR_state[0]));		   // LFSR state = LFSR output 
+         .state(LFSR_state[1]));		   // LFSR state = LFSR output 
 
   lfsr6b l2(.clk(clk) , 
          .en   (LFSR_en)  ,            // 1: advance LFSR on rising clk
          .init (load_LFSR),	            // 1: initialize LFSR
          .taps (6'h30)     ,    // tap pattern 2
          .start(start) ,	            // starting state for LFSR
-         .state(LFSR_state[0]));		   // LFSR state = LFSR output 
+         .state(LFSR_state[2]));		   // LFSR state = LFSR output 
 
   lfsr6b l3(.clk(clk) , 
          .en   (LFSR_en)  ,            // 1: advance LFSR on rising clk
          .init (load_LFSR),	            // 1: initialize LFSR
          .taps (6'h33)     ,    // tap pattern 3
          .start(start) ,	            // starting state for LFSR
-         .state(LFSR_state[0]));		   // LFSR state = LFSR output 
+         .state(LFSR_state[3]));		   // LFSR state = LFSR output 
 
   lfsr6b l4(.clk(clk) , 
          .en   (LFSR_en)  ,            // 1: advance LFSR on rising clk
          .init (load_LFSR),	            // 1: initialize LFSR
          .taps (6'h36)     ,    // tap pattern 4
          .start(start) ,	            // starting state for LFSR
-         .state(LFSR_state[0]));		   // LFSR state = LFSR output 
+         .state(LFSR_state[4]));		   // LFSR state = LFSR output 
 
   lfsr6b l5(.clk(clk) , 
          .en   (LFSR_en)  ,            // 1: advance LFSR on rising clk
          .init (load_LFSR),	            // 1: initialize LFSR
          .taps (6'h39)     ,    // tap pattern 5
          .start(start) ,	            // starting state for LFSR
-         .state(LFSR_state[0]));	
+         .state(LFSR_state[5]));	
 
 
 
