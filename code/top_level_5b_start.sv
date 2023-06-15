@@ -96,6 +96,11 @@ per clock cycle.
 // acts like a priority encoder from MSB to LSB 
   always_comb case(match)
     6'b10_0000: foundit = 'd5;	    // because bit [5] was set
+    6'b01_0000: foundit = 'd4;	    
+    6'b00_1000: foundit = 'd3;	    
+    6'b00_0100: foundit = 'd2;	    
+    6'b00_0010: foundit = 'd1;	    
+    6'b00_0001: foundit = 'd0;	    
     // fill in the guts
 	default: foundit = 0;           // covers bit[0] match and no match cases
   endcase
@@ -105,7 +110,7 @@ per clock cycle.
   always @(posedge clk) begin  :clock_loop
     if(init) begin
       cycle_ct <= 'b0;
-	  match    <= 'b0;
+	    match    <= 'b0;
 	end
     else begin
       cycle_ct <= cycle_ct + 1;
