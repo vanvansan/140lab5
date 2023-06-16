@@ -97,6 +97,9 @@ module Lab_5b_tb                ;
       if(str2[lk]==8'h5f) continue;	       // count leading _ chars in string
 	  else break;                          // we shall add these to preamble pad length
 	$display("embedded leading underscore count = %d",lk);
+      for (int i = 0; i < 6; i++) begin
+      $display("state[%d] = %h",i, dut.LFSR_state[i]);
+      end
 // precompute encrypted message
 	lfsr_ptrn = LFSR_ptrn[pat_sel];        // select one of the 6 permitted tap ptrns
 // write the three control settings into data_memory of DUT
