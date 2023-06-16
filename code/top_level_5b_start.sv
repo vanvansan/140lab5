@@ -114,7 +114,7 @@ per clock cycle.
 	end
     else begin
       cycle_ct <= cycle_ct + 1;
-      if(cycle_ct== 8) begin			// last symbol of preamble 
+      if(cycle_ct == 8) begin			// last symbol of preamble 
         for(i=0; i<6; i++) begin
           match[i] <= ( (6'h1F ^ dat_out[5:0])== LFSR_state[i]);				// which LFSR state conforms to our test bench LFSR? 
         end
@@ -148,23 +148,23 @@ per clock cycle.
 		   waddr = 'd0;
 		 end
 	72  : begin
-            done = 'b1;		// send acknowledge back to test bench to halt simulation
- 		    raddr =	;
- 		    waddr = ; 
+        done = 'b1;		// send acknowledge back to test bench to halt simulation
+ 		    raddr ++;
+ 		    waddr ++; 
 	     end
 	default: begin	         // covers cycle_ct 4-71
-	       LFSR_en = 1;
-           raddr ; 
-           if(cycle_ct>) begin   // turn on write enable
-			 wr_en = ;
-			 if(cycle_ct>)		 // advance memory write address pointer
-			   waddr;
-		   end
-		   else begin
-		     waddr = ;
-			 wr_en = ;
-		   end
-//		   data_in = data_out^LFSR_state[foundit];
+	      LFSR_en = 'b1;
+        raddr ++; 
+        if(cycle_ct>8) begin   // turn on write enable
+			    wr_en = 'b1;
+        //if(cycle_ct>9)		 // advance memory write address pointer
+          waddr++;
+        end
+        else begin
+          waddr = 'd0;
+          wr_en = 'b0;
+        end
+		   data_in = data_out^LFSR_state[foundit];
 	     end
   endcase
 end
