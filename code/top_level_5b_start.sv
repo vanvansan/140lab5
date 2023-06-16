@@ -114,10 +114,10 @@ per clock cycle.
 	end
     else begin
       cycle_ct <= cycle_ct + 1;
-	  if(cycle_ct== 7) begin			// last symbol of preamble 
-	    for(i=0; i<6; i++) begin
-	      match[i] <= ;				// which LFSR state conforms to our test bench LFSR? 
-		end
+      if(cycle_ct== 8) begin			// last symbol of preamble 
+        for(i=0; i<6; i++) begin
+          match[i] <= ( (6'h1F ^ dat_out[5:0])== LFSR_state[i]);				// which LFSR state conforms to our test bench LFSR? 
+        end
       end
     end
   end  
@@ -126,34 +126,34 @@ per clock cycle.
 //defaults
     load_LFSR = 'b0; 
     LFSR_en   = 'b0;   
-	wr_en     = 'b0;
+	  wr_en     = 'b0;
   case(cycle_ct)
 	0: begin 
-      raddr     = ;   // starting address for encrypted data to be loaded into device
-		  waddr     = ;   // starting address for storing decrypted results into data mem
+      raddr     = 'd64;   // starting address for encrypted data to be loaded into device
+		  waddr     = 'd0;   // starting address for storing decrypted results into data mem
 	     end		       // no op
 	1: begin 
-           load_LFSR = ;	  // initialize the 6 LFSRs
-           raddr     = ;
-		   waddr     = ;
+           load_LFSR = 'b1;	  // initialize the 6 LFSRs
+           raddr     = 'd64;
+		   waddr     = 'd0;
 	     end		       // no op
 	2  : begin				   
-           LFSR_en   = ;	   // advance the 6 LFSRs     
-           raddr     = ;
-		   waddr     = ;
+           LFSR_en   = 'b1;	   // advance the 6 LFSRs     
+           raddr     = 'd64;
+		   waddr     = 'd0;
          end
 	3  : begin			       // training seq.	-- run LFSRs & advance raddr
-	       LFSR_en = ;
-		   raddr     ;			  // advance raddr
-		   waddr = ;
+	       LFSR_en = 'b1;
+		   raddr = 'd65    ;			  // advance raddr
+		   waddr = 'd0;
 		 end
 	72  : begin
-            done = ;		// send acknowledge back to test bench to halt simulation
+            done = 'b1;		// send acknowledge back to test bench to halt simulation
  		    raddr =	;
  		    waddr = ; 
 	     end
 	default: begin	         // covers cycle_ct 4-71
-	       LFSR_en = ;
+	       LFSR_en = 1;
            raddr ; 
            if(cycle_ct>) begin   // turn on write enable
 			 wr_en = ;
