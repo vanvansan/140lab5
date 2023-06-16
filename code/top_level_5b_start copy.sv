@@ -103,7 +103,7 @@ per clock cycle.
     6'b00_0010: foundit = 'd1;	    
     6'b00_0001: foundit = 'd0;	    
     // fill in the guts
-	default: foundit = 'b111;           // covers bit[0] match and no match cases
+	default: foundit = 'b010;           // covers bit[0] match and no match cases
   endcase
 
 // program counter
@@ -111,17 +111,13 @@ per clock cycle.
   always @(posedge clk) begin  :clock_loop
     if(init) begin
       cycle_ct <= 'b0;
-	    match    <= 6'b0;
+	    match    <= 'b0;
 	end
     else begin
       cycle_ct <= cycle_ct + 1;
-      //if(cycle_ct == 7) begin			// last symbol of preamble 
-    if ((cycle_ct <= 12) && (match == 6'b0) && (cycle_ct >= 8)) begin
-
+      if(cycle_ct == 7) begin			// last symbol of preamble 
         for(i=0; i<6; i++) begin
-          if (((6'h1F ^ data_out[5:0])== LFSR_state[i])) begin
-            match[i] <= 'b1;				// which LFSR state conforms to our test bench LFSR? 
-          end
+          match[i] <= ( (6'h1F ^ data_out[5:0])== LFSR_state[i]);				// which LFSR state conforms to our test bench LFSR? 
           //$display("LFSR_state[%d] is %h, 6'h1F ^ data_out[5:0] is %h",i,LFSR_state[i], 6'h1F ^ data_out[5:0]);
         end
       end
@@ -137,6 +133,7 @@ per clock cycle.
         load_LFSR = 'b0; 
 	      LFSR_en = 'b0;
         done = 'b0;		// send acknowledge back to test bench to halt simulation
+        raddr ++; 
 
   case(cycle_ct)
 	0: begin 
@@ -144,13 +141,11 @@ per clock cycle.
 		  waddr     = 'd0;   // starting address for storing decrypted results into data mem
 	     end		       // no op
 	1: begin 
-        raddr += 'b1; 
       load_LFSR = 'b1;	  // initialize the 6 LFSRs
       // raddr     = 'd64;
 		  // waddr     = 'd0;
 	     end		       // no op
 	2  : begin				   
-        raddr += 'b1; 
       LFSR_en   = 'b1;	   // advance the 6 LFSRs     
       // raddr     = 'd64;
 		  // waddr     = 'd0;
@@ -167,7 +162,7 @@ per clock cycle.
 	     end
 	default: begin	  // covers cycle_ct 4-71
 	      LFSR_en = 'b1;
-        raddr += 'b1; 
+        //raddr ++; 
         if(cycle_ct > 8) begin   // turn on write enable
 			    wr_en = 'b1;
         //if(cycle_ct>9)		 // advance memory write address pointer

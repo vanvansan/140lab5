@@ -87,6 +87,7 @@ module Lab_5b_tb                ;
 // set starting LFSR state for program -- 
 // ***** choose any 6-bit nonzero value *****
     LFSR_init = 6'h01;                     // for program 2 run
+
     if(!LFSR_init) begin
       $display("illegal zero LFSR start pattern chosen, overriding with 6'h01");
       LFSR_init = 6'h01;                   // override 0 with a legal (nonzero) value
