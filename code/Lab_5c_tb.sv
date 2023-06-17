@@ -50,7 +50,7 @@ module Lab_5b_tb                ;
 //      str2 = "@`@@``@@@```@@@@````@@@@@`````@@@@@@``````";
       str2 = "@@@@@@@@@@``````````@@@@@@@@@@``````````@@@@@@@@@@";
 //        str2 = "______________________________________________";
-    str_len = str2.len     ;
+    str_len = str2.len;
     if(str_len>50) 
       $display("illegally long string of length %d, truncating to 50 chars.",str_len);
 //    for(int ml=50; ml<64; ml++)
