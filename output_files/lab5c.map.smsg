@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at top_level_5b.sv(77): always construct contains both blocking and non-blocking assignments File: H:/GitHub/140lab5/top_level_5b.sv Line: 77
